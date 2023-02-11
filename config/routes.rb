@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :customers
   devise_for :admins
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "homes#top"
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   end
   
   scope module: :public do
-    get 'items' => 'items#index'
+    resources :customers
   end
 
 end

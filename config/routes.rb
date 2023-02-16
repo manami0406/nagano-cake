@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   
   scope module: :public do
     resources :items, only: [:index, :show]
-    resources :customers
+    resources :customers, only: [:show, :edit, :update]
+    get 'customers/:id/cancel' => 'customers#cancel', as:'cancel'
+    patch 'customers/:id/withdrawal' => 'customers#withdrawal', as:'withdrawal'
   end
 
 end

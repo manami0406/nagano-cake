@@ -2,12 +2,15 @@
 
 <% @items.each do |item| %>
 
-<% if item.image.attached? %>
-  <%= image_tag item.image, size: "200x200" %>
-<% else %>
-  <%= image_tag 'no-image', size: "200x200" %>
-<% end %>
-<%= item.name %>
-<%= item.price %>
+<div class="item-image">
+  <% if item.image.attached? %>
+    <%= image_tag item.image, size: "200x150" %>
+  <% else %>
+    <%= image_tag 'no-image', size: "200x150" %>
+  <% end %>
+</div>
+<div class="item-name">
+  <%= link_to item_path(item.id) do %><%= item.name %><% end %></div>
+<div class="item-price"><%= item.price %></div>
 
 <% end %>

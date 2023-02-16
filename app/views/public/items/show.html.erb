@@ -1,10 +1,20 @@
-<h1><%= @item.name %></h1>
+<span class="item-image">
+  <% if @item.image.attached? %>
+    <%= image_tag @item.image, size: "200x150" %>
+  <% else %>
+    <%= image_tag 'no-image', size: "200x150" %>
+  <% end %>
+</span>
 
-<h4><%= @item.introduction %></h4>
+<span class="item-name"><%= @item.name %></span>
 
-<h4><%= @item.price %></h4>
+<div class="item-introduction"><%= @item.introduction %></div>
+
+<div class="item-price">¥<%= @item.price %></div>
 
 <form>
-    <input type="number">
-    <button type="submit">カートに入れる</button>
+    <%= form_with model: @cart_items, url: cart_items_path do |f| %>
+      <%= f.select :amount, *[1..10] %>
+      <button type="submit">カートに入れる</button>
+    <% end %>
 </form>

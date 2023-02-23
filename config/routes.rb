@@ -20,7 +20,12 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update]
     get 'customers/:id/cancel' => 'customers#cancel', as:'cancel'
     patch 'customers/:id/withdrawal' => 'customers#withdrawal', as:'withdrawal'
-    resources :cart_items, only: [:create, :index]
+    resources :cart_items, only: [:create, :index, :destroy] do
+      collection do
+        delete '/cart_items/destroy_all' => 'cart_items#destroy_all', as:'destroy_all'
+      end
+    end
+      
   end
 
 end

@@ -1,0 +1,18 @@
+<%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細
+
+<h4>会員ID</h4>
+  <span><%= @customer.id %></span>
+<h4>氏名</h4>
+  <span><%= @customer.last_name %><%= @customer.first_name %></span>
+<h4>フリガナ</h4>
+  <span><%= @customer.last_name_kana %><%= @customer.first_name_kana %></span>
+<h4>郵便番号</h4>
+  <span><%= @customer.postal_code %></span>
+<h4>住所</h4>
+  <span><%= @customer.address %></span>
+<h4>電話番号</h4>
+  <span><%= @customer.telephone_number %></span>
+<h4>メールアドレス</h4>
+  <span><%= @customer.email %></span>
+<h4>会員ステータス</h4>
+  <span><%= @customer.is_deleted %></span>

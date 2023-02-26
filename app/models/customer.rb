@@ -8,4 +8,5 @@ class Customer < ApplicationRecord
   #   super && (is_deleted == false)
   # end
   has_many :cart_items, dependent: :destroy
+  has_many :orders, dependent: :destroy
 end

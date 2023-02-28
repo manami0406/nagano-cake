@@ -27,6 +27,22 @@
         <li class= "nav-link">
           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
         </li>
+      <% elsif admin_signed_in? %>
+        <li class= "nav-link">
+          <%= link_to "商品一覧", items_path %> 
+        </li>
+        <li class= "nav-link">
+          <%= link_to "会員一覧" %>
+        </li>
+        <li class= "nav-link">
+          <%= link_to "注文履歴一覧" %>
+        </li>
+        <li class= "nav-link">
+          <%= link_to "ジャンル一覧" %>
+        </li>
+        <li class= "nav-link">
+          <%= link_to "ログアウト" %>
+        </li>
       <% else %>  
         <li class="nav-link">
           <%= link_to 'About', about_path %>
@@ -41,6 +57,7 @@
           <%= link_to 'ログイン', new_customer_session_path %>
         </li>
       <% end %>
+      
       
     </header>
     <%= yield %>

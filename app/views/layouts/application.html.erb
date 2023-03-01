@@ -41,7 +41,7 @@
           <%= link_to "ジャンル一覧" %>
         </li>
         <li class= "nav-link">
-          <%= link_to "ログアウト" %>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
         </li>
       <% else %>  
         <li class="nav-link">

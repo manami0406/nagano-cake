@@ -32,11 +32,20 @@ class Public::OrdersController < ApplicationController
           @order_detail.order_id = @order.id
           @order_detail.item_id = cart_item.item_id
           @order_detail.amount = cart_item.amount
-          @order_detail.price = cart_item.item.price
+          @order_detail.price = cart_item.subtotal
           @order_detail.is_making = 0
           @order_detail.save
         end
+        current_customer.cart_items.destroy_all
         redirect_to complete_orders_path
+    end
+    
+    def index
+        @order_details = OrderDetail.all
+    end
+    
+    def show
+        @order_detail = OrderDetail.find(params[:id])
     end
     
     private

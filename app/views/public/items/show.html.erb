@@ -1,22 +1,24 @@
-<span class="item-image">
-  <% if @item.image.attached? %>
-    <%= image_tag @item.image, size: "200x150" %>
-  <% else %>
-    <%= image_tag 'no-image', size: "200x150" %>
-  <% end %>
-</span>
-
-<span class="item-name"><%= @item.name %></span>
-
-<div class="item-introduction"><%= @item.introduction %></div>
-
-<div class="item-price">¥<%= @item.price %></div>
-
-
-    <%= form_with model: @cart_item do |f| %>
-      <%= f.hidden_field :item_id, :value => @item.id %>
-      <%= f.hidden_field :customer_id, :value => current_customer.id %>
-      <%= f.select :amount, *[1..10] %>
-      <%= f.submit "カートに入れる" %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto d-flex col-md-10">
+      <div class="item-image col-4">
+        <% if @item.image.attached? %>
+          <%= image_tag @item.image, size: "300x200" %>
+        <% else %>
+          <%= image_tag 'no-image', size: "300x200" %>
+        <% end %>
+      </div>
+      <div class="col-8 align-items-center ml-5">
+        <h6 class="item-name font-weight-bold"><%= @item.name %></h6>
+        <p class="item-introduction"><%= @item.introduction %></p>
+        <p class="item-price pt-4">¥<%= @item.with_tax_price %>(税込)</p>
+        <%= form_with model: @cart_item do |f| %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <%= f.select :amount, *[1..100] %>
+          <%= f.submit "カートに入れる", class:"btn btn-sm btn-success ml-5" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 

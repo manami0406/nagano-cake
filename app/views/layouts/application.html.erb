@@ -6,59 +6,64 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-      <a class="nav-logo" href="/">LOGO</a>
-      
-      <% if customer_signed_in? %>
-        <li class="nav-link">
-          <%= link_to 'マイページ',customer_path(current_customer.id) %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to '商品一覧', items_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to 'カート', cart_items_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-        </li>
-      <% elsif admin_signed_in? %>
-        <li class= "nav-link">
-          <%= link_to "商品一覧", admin_items_path %> 
-        </li>
-        <li class= "nav-link">
-          <%= link_to "会員一覧", admin_customers_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to "注文履歴一覧", admin_orders_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to "ジャンル一覧", admin_genres_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-      <% else %>  
-        <li class="nav-link">
-          <%= link_to 'About', about_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to '商品一覧', items_path %>
-        </li>
-        <li class="nav-link">
-          <%= link_to '新規登録', new_customer_registration_path %>
-        </li>
-        <li class= "nav-link">
-          <%= link_to 'ログイン', new_customer_session_path %>
-        </li>
-      <% end %>
-      
-      
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class= "h1" href= "/" >LOGO</a>
+          <div class="collapse navbar-collapse" id="navbarNavDoropdown">
+            <ul class="navbar-nav navbar-brand ml-auto">
+            <% if customer_signed_in? %>
+            <li class="nav-link">
+              <%= link_to 'マイページ',customer_path(current_customer.id), class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to '商品一覧', items_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to 'カート', cart_items_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:"btn btn-light" %>
+            </li>
+            <% elsif admin_signed_in? %>
+            <li class= "nav-link">
+              <%= link_to "商品一覧", admin_items_path, class:"btn btn-light" %> 
+            </li>
+            <li class= "nav-link">
+              <%= link_to "会員一覧", admin_customers_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to "注文履歴一覧", admin_orders_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to "ジャンル一覧", admin_genres_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light" %>
+            </li>
+            <% else %>  
+            <li class="nav-link">
+              <%= link_to 'About', about_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to '商品一覧', items_path, class:"btn btn-light" %>
+            </li>
+            <li class="nav-link">
+              <%= link_to '新規登録', new_customer_registration_path, class:"btn btn-light" %>
+            </li>
+            <li class= "nav-link">
+              <%= link_to 'ログイン', new_customer_session_path, class:"btn btn-light" %>
+            </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
     <%= yield %>
   </body>

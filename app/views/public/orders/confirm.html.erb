@@ -29,6 +29,15 @@
 
 
 <h4>お届け先</h4>
+
+<% if @order.errors.any? %>
+  <%= @order.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 〒<%= @order.postal_code %>
 <%= @order.address %>
 <%= @order.name %>

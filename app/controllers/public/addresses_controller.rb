@@ -8,8 +8,11 @@ class Public::AddressesController < ApplicationController
     def create
         @address = Address.new(address_params)
         @address.customer_id = current_customer.id
-        @address.save
-        redirect_to addresses_path
+        if @address.save
+            redirect_to addresses_path
+        else
+            render :index
+        end
     end
     
     def edit

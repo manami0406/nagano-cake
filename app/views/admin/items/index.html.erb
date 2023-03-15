@@ -1,14 +1,22 @@
-<h1>商品一覧</h1>
-
-<% @items.each do |item| %>
-
-<h4>商品名</h4>
-  <span><%= item.name %></span>
-<h4>税抜価格</h4>
-  <span><%= item.price %></span>
-<h4>ジャンル</h4>
-  <span><%= item.genre_id %></span>
-<h4>販売ステータス</h4>
-  <span><%= item.is_active %></span>
-  
-<% end %>
+<div class= "container">
+<span class="h3">商品一覧</span>
+<span class= "plus-button"><%= link_to '+', new_admin_item_path %></span>
+  <div class="row">
+    <table class="table">
+      <tr>
+        <th>商品名</th>
+        <th>税抜価格</th>
+        <th>ジャンル</th>
+        <th>販売ステータス</th>
+      </tr>
+      <% @items.each do |item| %>
+      <tr>
+        <td><%= link_to admin_item_path(item.id) do %><%= item.name %><% end %></td>
+        <td><%= item.price %></td>
+        <td><%= item.genre.name %></td>
+        <td><%= item.is_active %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

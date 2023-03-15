@@ -12,7 +12,7 @@
 <%= form_with model:@order, url: admin_order_path do |f| %>
   <%= f.select :is_order, Order.is_orders.keys.map {|k| [I18n.t("enums.order.is_order.#{k}"), k]} %>
 
-  <span><%= f.submit "更新" %></span>
+  <span><%= f.submit "更新", class:"btn btn-sm btn-success" %></span>
 <% end %>
 
 <table>
@@ -33,7 +33,7 @@
       <td><%= form_with model:order_detail, url: admin_order_detail_path(order_detail) do |f| %>
               <%= f.select :is_making, OrderDetail.is_makings.keys.map {|k| [I18n.t("enums.order_detail.is_making.#{k}"), k]} %>
 
-              <%= f.submit "更新" %>
+              <%= f.submit "更新", class:"btn btn-sm btn-success" %>
             <% end %></td>
     </tr>
     <% end %>

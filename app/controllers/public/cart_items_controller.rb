@@ -8,9 +8,13 @@ class Public::CartItemsController < ApplicationController
           cart_item = current_customer.cart_items.find_by(item_id: params[:cart_item][:item_id])
           cart_item.amount += params[:cart_item][:amount].to_i
           cart_item.save
+          flash[:notice] = "カートに追加しました"
           redirect_to cart_items_path
+        elsif  @cart_item.save
+               flash[:notice] = "カートに追加しました"
+               redirect_to cart_items_path
         else
-          @cart_item.save
+          flash[:notice] = "追加に失敗しました"
           redirect_to cart_items_path
         end
     end
@@ -22,13 +26,23 @@ class Public::CartItemsController < ApplicationController
     
     def destroy
         @cart_item = CartItem.find(params[:id])
-        @cart_item.destroy
-        redirect_to cart_items_path
+        if  @cart_item.destroy
+            flash[:notice] = "削除しました"
+            redirect_to cart_items_path
+        else
+            flash[:notice] = "削除に失敗しました"
+            redirect_to cart_items_path
+        end
     end
     
     def destroy_all
-        current_customer.cart_items.destroy_all
-        redirect_to items_path
+        if  current_customer.cart_items.destroy_all
+            flash[:notice] = "削除しました"
+            redirect_to items_path
+        else
+            flash[:notice] = "削除に失敗しました"
+            redirect_to cart_items_path
+        end
     end
     
     private

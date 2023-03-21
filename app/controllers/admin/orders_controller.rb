@@ -11,8 +11,13 @@ class Admin::OrdersController < ApplicationController
     
     def update
         @order = Order.find(params[:id])
-        @order.update(order_params)
-        redirect_to admin_order_path
+        if @order.update(order_params)
+           flash[:notice] = "更新しました"
+           redirect_to admin_order_path
+        else
+           flash[:notice] = "更新に失敗しました"
+           redirect_to admin_order_path
+        end
     end
     
     private

@@ -11,8 +11,13 @@ class Public::CustomersController < ApplicationController
     
     def update
         @customer = Customer.find(params[:id])
-        @customer.update(customer_params)
-        redirect_to customer_path(current_customer.id)
+        if @customer.update(customer_params)
+            flash[:notice] = "更新しました"
+            redirect_to customer_path(current_customer.id)
+        else
+            flash[:notice] = "更新に失敗しました"
+            redirect_to edit_customer_path
+        end
     end
     
     def cancel
@@ -21,9 +26,14 @@ class Public::CustomersController < ApplicationController
     
     def withdrawal
         @customer = Customer.find(params[:id])
-        @customer.update(is_deleted: true)
-        reset_session
-        redirect_to root_path
+        if @customer.update(is_deleted: true)
+           reset_session
+           flash[:notice] = "退会しました"
+           redirect_to root_path
+        else
+           flash[:notice] = "退会に失敗しました"
+           redirect_to customer_path(current_customer.id)
+        end
     end
     
     private

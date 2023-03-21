@@ -1,7 +1,10 @@
 <div class= "container">
-<span class="h3">商品一覧</span>
-<span class= "plus-button"><%= link_to '+', new_admin_item_path %></span>
   <div class="row">
+    <span class="h3">商品一覧</span>
+    <span class= "ml-5"><%= link_to '+', new_admin_item_path, class:"ml-5 btn btn-light rounded-circle" %></span>
+  </div>
+  
+  <div class="row mt-4">
     <table class="table">
       <tr>
         <th>商品名</th>

@@ -1,44 +1,49 @@
-<h1>配送先登録/一覧</h1>
+<div class="container">
+  <div class="row">
+  <h2>配送先登録/一覧</h2>
 
-<% if @address.errors.any? %>
-  <%= @address.errors.count %>件のエラーが発生しました
-  <ul>
-    <% @address.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @address, url: addresses_path, method: :post do |f| %>
-<div class= "new">
-  郵便番号(ハイフンなし)<%= f.text_field :postal_code %>
-</div>
-<div class= "new">
-  住所<%= f.text_field :address %>
-</div>
-<div class= "new">
-  宛名<%= f.text_field :name %>
-</div>
-<%= f.submit '新規登録' %>
-<% end %>
-
-
-<div class= "all">
-  <% @addresses.each do |address| %>
-    <table>
-    <tr>
-      <th>郵便番号</th>
-      <th>住所</th>
-      <th>宛名</th>
-      <th></th>
-    </tr>
-    <tr>
-      <td><%= address.postal_code %></td>
-      <td><%= address.address %></td>
-      <td><%= address.name %></td>
-      <td><%= link_to '編集する', edit_address_path(address.id) %>
-          <%= link_to '削除する', address_path(address.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
-    </tr>
-    </table>
+  <% if @address.errors.any? %>
+    <%= @address.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
+  </div>
+  
+  <div class="row">
+    <div class="col-7">
+    <%= form_with model: @address, url: addresses_path, method: :post do |f| %>
+      <table>
+        <tr><th>郵便番号(ハイフンなし)</th><td><%= f.text_field :postal_code %></td></tr>
+　　　　<tr><th>住所</th><td><%= f.text_field :address %></td></tr>
+　　　　<tr><th>宛名</th><td><%= f.text_field :name %></td></tr>
+      </table>
+    </div>
+  </div>
+    <div class="row mx-auto mt-3">
+    <%= f.submit '新規登録', class:"btn btn-success" %>
+    <% end %>
+    </div>
+
+  <div class= "row mt-5">
+    <% @addresses.each do |address| %>
+      <table border="2">
+      <tr>
+        <th>郵便番号</th>
+        <th>住所</th>
+        <th>宛名</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td><%= address.postal_code %></td>
+        <td><%= address.address %></td>
+        <td><%= address.name %></td>
+        <td><%= link_to '編集する', edit_address_path(address.id), class:"btn btn-success" %>
+            <%= link_to '削除する', address_path(address.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></td>
+      </tr>
+      </table>
+    <% end %>
+  </div>
 </div>

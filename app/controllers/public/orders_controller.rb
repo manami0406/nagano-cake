@@ -28,6 +28,8 @@ class Public::OrdersController < ApplicationController
     
     def create
         @order = Order.new(order_params)
+        @order.postage = 800
+        @order.is_order = 0
         @order.save
         @cart_items = current_customer.cart_items
         @cart_items.each do |cart_item|

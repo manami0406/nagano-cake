@@ -6,7 +6,7 @@
   <%= form_with model: @order, url: admin_order_path, method: :patch, local: true do |f| %>
   <div class="row mt-4">
     <table>
-      <tr><th>購入者</th><td><%= @order.customer.last_name %><%= @order.customer.first_name %></td></tr>
+      <tr><th>購入者</th><td><%= link_to admin_customer_path(@order.customer_id) do %><%= @order.customer.last_name %><%= @order.customer.first_name %><% end %></td></tr>
       <tr><th>注文日</th><td><%= @order.created_at.strftime('%Y/%m/%d') %></td></tr>
 　　　<tr><th>配送先</th><td>〒<%= @order.postal_code %><%= @order.address %><%= @order.name %></td></tr>
 　　　<tr><th>支払方法</th><td><%= @order.payment_method_i18n %></td></tr>
@@ -18,7 +18,7 @@
   <% end %>
 　
 　<div class="row">
-　  <div class="col-6">
+　  <div class="col-7">
 　  <table class="table">
     <tr>
       <th>商品名</th>
@@ -34,19 +34,19 @@
       <td><%= order_detail.item.with_tax_price %></td>
       <td><%= order_detail.amount %></td>
       <td><%= order_detail.item.with_tax_price * order_detail.amount %></td>
-      <td><%= form_with model:order_detail, url: admin_order_detail_path(order_detail) do |f| %>
-          <%= f.select :is_making, OrderDetail.is_makings.keys.map {|k| [I18n.t("enums.order_detail.is_making.#{k}"), k]} %></td>
-      <td><%= f.submit "更新", class:"btn btn-sm btn-success" %><% end %></td>
+      <td><%= form_with model:order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
+          <%= f.select :is_making, OrderDetail.is_makings.keys.map {|k| [I18n.t("enums.order_detail.is_making.#{k}"), k]} %>
+          <%= f.submit "更新", class:"btn btn-sm btn-success" %><% end %></td>
     </tr>
     <% end %>
     </table>
     </div>
 
-    <div class="col-4 offset-md-1 mt-4">
+    <div class="col-3 offset-md-1 mt-4">
       <table>
-        <tr><th>商品合計</th><td><%= @order.total_payment %></td></tr>
-　　　　<tr><th>送料</th><td><%= @order.postage %></td></tr>
-　　　　<tr><th>請求金額合計</th><td></td></tr>
+        <tr><th>商品合計</th><td><%= @order.total_payment - @order.postage %>円</td></tr>
+　　　　<tr><th>送料</th><td><%= @order.postage %>円</td></tr>
+　　　　<tr><th>請求金額合計</th><td><%= @order.total_payment %>円</td></tr>
       </table>
     </div>
   </div>

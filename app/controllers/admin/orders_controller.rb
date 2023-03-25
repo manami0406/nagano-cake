@@ -6,20 +6,22 @@ class Admin::OrdersController < ApplicationController
     
     def show
         @order = Order.find(params[:id])
-        @order_details = OrderDetail.all
+        @order_details = @order.order_details
     end
     
     def update
         @order = Order.find(params[:id])
-        @order_details = OrderDetail.all
-        if @order.update(order_params)
-           @order_details.update_all(is_making: 1) if @order.is_order == "payment_confirmation"
-           flash[:notice] = "更新しました"
-           redirect_to admin_order_path(@order)
-        else
-           flash[:notice] = "更新に失敗しました"
-           redirect_to admin_order_path(@order)
+        @order.update(order_params)
+        @order_details = @order.order_details
+        
+        if @order.is_order == "payment_confirmation"
+            @order_details.each do |order_detail|
+              order_detail.is_making = "waiting_for_making"
+              order_detail.save
+              flash[:notice] = "更新しました"
+            end
         end
+        redirect_to admin_order_path
     end
     
     private
@@ -27,5 +29,4 @@ class Admin::OrdersController < ApplicationController
     def order_params
         params.require(:order).permit(:is_order)
     end
-    
 end

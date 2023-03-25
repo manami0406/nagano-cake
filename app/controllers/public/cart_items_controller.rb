@@ -18,6 +18,13 @@ class Public::CartItemsController < ApplicationController
           redirect_to cart_items_path
         end
     end
+    
+    def update
+        @cart_item = CartItem.find(params[:id])
+        @cart_item.update(cart_item_params)
+        flash[:notice] = '個数を変更しました'
+        redirect_to cart_items_path
+    end
 
     def index
         @cart_items = current_customer.cart_items
@@ -38,7 +45,7 @@ class Public::CartItemsController < ApplicationController
     def destroy_all
         if  current_customer.cart_items.destroy_all
             flash[:notice] = "削除しました"
-            redirect_to items_path
+            redirect_to cart_items_path
         else
             flash[:notice] = "削除に失敗しました"
             redirect_to cart_items_path
